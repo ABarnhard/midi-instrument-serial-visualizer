@@ -1,2 +1,2 @@
-# instrument1SerialVisualizer
-A Serial Port Data Visualizer for the Artiphon - Instrument1
+# Midi Instrument Serial Visualizer
+A Serial Port Data Visualizer
