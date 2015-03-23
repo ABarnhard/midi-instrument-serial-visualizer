@@ -1,0 +1,40 @@
+/* Clear Browser Styles */
+
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+
+
+/* Set Variables */
+
+vw == ::window[width];
+
+
+
+/* Sizing */
+
+header[height] == 30vh;
+footer[height] == 15vh;
+
+h1[size] == h1[intrinsic-size];
+h2[size] == h2[intrinsic-size];
+p[size] == p[intrinsic-size];
+
+
+
+/* Vertical Alignments */
+
+@v |(header)(main)(footer)|;
+h1[cy] == header[cy];
+p[cy] == main[cy];
+h2[cy] == footer[cy];
+
+
+
+/* Horizontal Alignments */
+
+@h |(header, footer)|;
+@h |-(main)-| gap(vw / 20);
+(h1, p, h2)[cx] == ::window[cx];

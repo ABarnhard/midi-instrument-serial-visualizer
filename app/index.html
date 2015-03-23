@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="visualizer">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Midi Instrument Serial Visualizer</title>
+
+    <link rel="stylesheet" href="styles/layout.gss" type="text/gss"/>
+    <link rel="stylesheet" href="styles/colors.gss" type="text/gss"/>
+
+  </head>
+  <body>
+
+
+
+    <header>
+      <h1>Instrument Serial Visualizer</h1>
+    </header>
+    <main ng-controller="VisualizerController as vis">
+      <input type="text" name="text" placeholder="Input data Here:)" ng-model="vis.text"/>
+      <p>{{vis.text}}</p>
+    </main>
+    <footer>
+      <h2>Check out this cool Footer!!!</h2>
+    </footer>
+
+    <!-- Dependency Tags Here... -->
+
+    <script src="/node_modules/gss-engine/dist/gss.js"></script>
+    <script src="/node_modules/angular/angular.min.js"></script>
+    <script src="js/gss_jscript.js"></script>
+
+    <!-- Write Angular Script tags below. -->
+
+    <script src="" charset="utf-8"></script>
+
+
+
+  </body>
+</html>
