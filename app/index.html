@@ -20,8 +20,7 @@
       <h1>Instrument Serial Visualizer</h1>
     </header>
     <main ng-controller="VisualizerController as vis">
-      <input type="text" name="text" placeholder="Input data Here:)" ng-model="vis.text"/>
-      <p>{{vis.text}}</p>
+      <p>{{vis.data}}</p>
     </main>
     <footer>
       <h2>Check out this cool Footer!!!</h2>
@@ -29,13 +28,17 @@
 
     <!-- Dependency Tags Here... -->
 
+    <!-- GSS Dependency -->
     <script src="/node_modules/gss-engine/dist/gss.js"></script>
+    <script src="/gss_jscript.js"></script>
+
+    <!-- Angular Dependency -->
     <script src="/node_modules/angular/angular.min.js"></script>
-    <script src="js/gss_jscript.js"></script>
 
-    <!-- Write Angular Script tags below. -->
+    <!-- Include Angular Script tags below. -->
 
-    <script src="" charset="utf-8"></script>
+    <script src="js/visualizer.module.js" charset="utf-8"></script>
+    <script src="js/visualizer.controller.js" charset="utf-8"></script>
 
 
 

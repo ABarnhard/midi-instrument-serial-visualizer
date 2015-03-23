@@ -5,6 +5,7 @@ angular
 function VisualizerController () {
   var vm = this;
 
-
-
+  vm.data = function (input) {
+    return data
+  }
 }

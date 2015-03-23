@@ -3,7 +3,7 @@
   "name": "Midi Instrument Serial Visualizer",
   "version": "1",
   "icons": {
-    "128": "app/icon_128.png"
+    "128": "app/assets/icon_128.png"
   },
   "permissions": ["storage"],
   "app": {
