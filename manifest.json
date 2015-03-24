@@ -5,7 +5,9 @@
   "icons": {
     "128": "app/assets/icon_128.png"
   },
-  "permissions": ["storage"],
+  "permissions": [
+    "serial"
+  ],
   "app": {
     "background": {
       "scripts": ["background.js"]
