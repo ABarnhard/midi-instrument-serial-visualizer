@@ -28,13 +28,14 @@ p[size] == p[intrinsic-size];
 
 @v |(header)(main)(footer)|;
 h1[cy] == header[cy];
-p[cy] == main[cy];
 h2[cy] == footer[cy];
 
-
+p {
+  text-align: center;
+}
 
 /* Horizontal Alignments */
 
 @h |(header, footer)|;
 @h |-(main)-| gap(vw / 20);
-(h1, p, h2)[cx] == ::window[cx];
+(h1, h2)[cx] == ::window[cx];

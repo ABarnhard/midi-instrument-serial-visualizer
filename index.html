@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="visualizer">
+<html ng-app="visualizer" ng-csp>
   <head>
 
     <meta charset="utf-8">
@@ -19,9 +19,14 @@
     <header>
       <h1>Instrument Serial Visualizer</h1>
     </header>
+
     <main ng-controller="VisualizerController as vis">
-      <p>Serial {{vis.data}} Data</p>
+      <div ng-repeat="device in vis.devices">
+        <p>{{device}}</p>
+      </div>
+      <p>this is where the data will populate.</p>
     </main>
+
     <footer>
       <h2>Check out this cool Footer!!!</h2>
     </footer>
@@ -33,12 +38,12 @@
     <script src="/gss_jscript.js"></script>
 
     <!-- Angular Dependency -->
-    <script src="/node_modules/angular/angular.min.js"></script>
+    <script src="/node_modules/angular/angular.js"></script>
 
     <!-- Include Angular Script tags below. -->
 
-    <script src="js/visualizer.module.js" charset="utf-8"></script>
-    <script src="js/visualizer.controller.js" charset="utf-8"></script>
+    <script src="js/visualizer.module.js"></script>
+    <script src="js/visualizer.controller.js"></script>
 
 
 
