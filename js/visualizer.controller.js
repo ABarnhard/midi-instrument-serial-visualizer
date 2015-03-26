@@ -32,40 +32,49 @@ function VisualizerController($scope) {
 
   function onReceiveCallback(obj) {
 
-      // Broken Google Code
+    function arrayBufferToString(arrayBuffer) {
 
-      // if (info.connectionId === vm.id && info.data) {
-      //   var str = convertArrayBufferToString(info.data);
-      //   if (str.charAt(str.length-1) === '\n') {
-      //     stringReceived += str.substring(0, str.length-1);
-      //     onLineReceived(stringReceived);
-      //     stringReceived = '';
-      //   } else {
-      //     stringReceived += str;
-      //   }
-      // }
-
-
-      // My code but console.logs data as an ArrayBuffer
-
-    if (connectionId === obj.connectionId) {
-      console.log('data', obj.data);
-    } else {
-      chrome.serial.setPaused(vm.id, true, function (arg) {
-        console.log(arg);
-      });
+      var u8view = new Uint8Array(arrayBuffer),
+             str = '',
+               i = 0;
+      for (i = 0; i < arrayBuffer.byteLength; i++) {
+        str += String.fromCharCode(u8view[i]);
+      }
+      return str.replace(/(\r\n|\n|\r)/gm, ',').replace(/(\s)/g, '');
     }
 
-    // Also my code but parses ArrayBuffer... Sort Of???
 
-    // if(connectionId === obj.connectionId){
-    //   data = new Uint8Array(obj.data);
-    //   console.log("data", data);
-    // } else {
-    //   console.log(obj);
-    // }
+    function serialStringToObj(str) {
+      var obj = {},
+          arr = str.split(',').slice(0, -1),
+       arrLen = arr.length,
+         temp;
+      for (var i = 0; i < arrLen; i++) {
+        temp = arr[i].split(':');
+        obj[temp[0]] = temp[1];
+      }
+      return obj;
+    }
+
+    // I'd like to eventually live update the view using the object I'm getting from the serialToObj method
+    // Also I'd like the object coming from the serialToObj method to be a set number of values, EG: 24 data points.
+    // But It would also need a way to sync up with the 0 key from the data so the updated obj would be the same on every iteration.
+
+
+    // vm.serial = serialStringToObj(arrayBufferToString(obj.data));
+
+
+
+
+    //For now I'm Console.logging the obj created from parsing the string created from the stream of data coming in from the ArrayBuffer {};
+
+    console.log(serialStringToObj(arrayBufferToString(obj.data)));
 
   }
+
+
+
+
 
   function onReceiveErrorCallback(info) {
     console.log(info.data)
@@ -99,12 +108,18 @@ function VisualizerController($scope) {
 
 
   // Listen for data from controller.
-  // chrome.serial.onReceive.addListener(onReceiveCallback);
-
+  chrome.serial.onReceive.addListener(onReceiveCallback);
 
 
 
   // Listens for errors from data stream. I think???
   // chrome.serial.onReceiveError.addListener(onReceiveErrorCallback);
+
+
+
+
+
+
+
 
 }
