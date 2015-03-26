@@ -5,37 +5,45 @@
   margin: 0px;
 }
 
-
-
-/* Set Variables */
-
-vw == ::window[width];
-
-
-
 /* Sizing */
 
-header[height] == 30vh;
-footer[height] == 15vh;
+header[height] == 6vh;
+footer[height] == 24vh;
+.innerFoot[height] == footer[height] / 2.1 !strong;
 
-h1[size] == h1[intrinsic-size];
-h2[size] == h2[intrinsic-size];
+.headLogo[height] == header[height] / 1.5;
+.footLogo[height] == .innerFoot[height] / 1.9;
 p[size] == p[intrinsic-size];
-
+.streamContent[size] == .streamContent[intrinsic-size];
 
 
 /* Vertical Alignments */
 
 @v |(header)(main)(footer)|;
-h1[cy] == header[cy];
-h2[cy] == footer[cy];
+@v |(.innerFoot)-| in(footer) gap(footer[height] / 11);
+.headLogo[cy] == header[cy];
+.footLogo[cy] == .innerFoot[cy];
+.streamContent[cy] == main[cy];
 
-p {
-  text-align: center;
+
+/* Horizontal Alignments & a little VFL Sizing */
+
+@h |-(header)-| gap(::window[width] / 12);
+@h |(main, footer, .innerFoot)|;
+@h |-(.streamContent)-|;
+.headLogo[left] == header[left] * 2.4;
+.footLogo[left] == header[left] * 3.1;
+
+
+/* Regular CSS to set the Background Image:) */
+
+body {
+  background-image: url('assets/slider_top.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
 }
-
-/* Horizontal Alignments */
-
-@h |(header, footer)|;
-@h |-(main)-| gap(vw / 20);
-(h1, h2)[cx] == ::window[cx];

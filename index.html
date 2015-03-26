@@ -11,37 +11,39 @@
     <link rel="stylesheet" href="styles/layout.gss" type="text/gss"/>
     <link rel="stylesheet" href="styles/colors.gss" type="text/gss"/>
 
+    <!-- GSS Dependency -->
+    <script src="/bower_components/gss/dist/gss.min.js"></script>
+    <script src="/gss_jscript.js"></script>
+
   </head>
   <body>
 
-
-
     <header>
-      <h1>Instrument Serial Visualizer</h1>
+      <img class="headLogo" src="assets/generic-logo.svg" alt="Logo"/>
     </header>
 
     <main ng-controller="VisualizerController as vis">
-      <div ng-repeat="device in vis.devices">
-        <p>{{device}}</p>
+      <div class="streamContent">
+        <div ng-repeat="device in vis.devices">
+          <p>{{device}}</p>
+        </div>
+        <p class="serialDisplay">this is where the data will populate.</p>
       </div>
-      <p>this is where the data will populate.</p>
     </main>
 
     <footer>
-      <h2>Check out this cool Footer!!!</h2>
+      <div class="innerFoot">
+        <img class="footLogo" src="assets/generic-logo.svg" alt="Logo"/>
+      </div>
     </footer>
 
     <!-- Dependency Tags Here... -->
 
-    <!-- GSS Dependency -->
-    <script src="/node_modules/gss-engine/dist/gss.js"></script>
-    <script src="/gss_jscript.js"></script>
+    <!-- Lodash Dependency -->
+    <script src="/bower_components/lodash/lodash.min.js"></script>
 
     <!-- Angular Dependency -->
-    <script src="/node_modules/angular/angular.js"></script>
-
-    <!-- Bower Lodash -->
-    <script src="/bower_components/lodash/lodash.min.js"></script>
+    <script src="/node_modules/angular/angular.min.js"></script>
 
     <!-- Include Angular Script tags below. -->
 

@@ -7,11 +7,10 @@ function VisualizerController($scope) {
 
   var vm     = this,
       choice = '/dev/tty.usbmodemfa141',
-      stringRecieved = '';
+      connectionId;
 
   vm.devices = [];
-  vm.stringRecieved = stringRecieved;
-  vm.id;
+
 
 
   function onGetDevices(ports) {
@@ -25,7 +24,7 @@ function VisualizerController($scope) {
 
   function onConnect(info) {
     // The serial port has been opened. Save its id to use later.
-    vm.id = this.connectionId = info.connectionId;
+    connectionId = vm.id = info.connectionId;
     // Do whatever you need to do with the opened port.
   }
 
@@ -60,15 +59,14 @@ function VisualizerController($scope) {
     // Also I'd like the object coming from the serialToObj method to be a set number of values, EG: 24 data points.
     // But It would also need a way to sync up with the 0 key from the data so the updated obj would be the same on every iteration.
 
-
-    // vm.serial = serialStringToObj(arrayBufferToString(obj.data));
+    document.querySelector('.serialDisplay').textContent =  arrayBufferToString(obj.data);
 
 
 
 
     //For now I'm Console.logging the obj created from parsing the string created from the stream of data coming in from the ArrayBuffer {};
 
-    console.log(serialStringToObj(arrayBufferToString(obj.data)));
+    // console.log(serialStringToObj(arrayBufferToString(obj.data)));
 
   }
 
@@ -80,8 +78,9 @@ function VisualizerController($scope) {
     console.log(info.data)
   }
 
-
-
+  document.querySelector('body').onclick = function(){
+    chrome.serial.setPaused(connectionId, true, function(){});
+  };
 
   // console.log(); Current connections logs an array of connection objects.
   chrome.serial.getConnections(function (arg) {
@@ -108,7 +107,7 @@ function VisualizerController($scope) {
 
 
   // Listen for data from controller.
-  chrome.serial.onReceive.addListener(onReceiveCallback);
+  chrome.serial.onReceive.addListener(_.throttle(onReceiveCallback, 100));
 
 
 

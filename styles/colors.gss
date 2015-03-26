@@ -1,20 +1,16 @@
-body {
-  background-color: #5a5a5a;
-}
-
-
 header {
-  background-color: #7592c3;
+  background-color: rgba(240, 240, 240, 0.7);
 }
 
-main {
-  background-color: #59274c;
-  p {
-    color: #fbff00;
+main  p {
+    color: #eee;
   }
-}
 
 
 footer {
-  background-color: #4537d2;
+  background-color: rgba(240, 240, 240, 0.85);
+}
+
+.innerFoot {
+  background-color: rgba(255, 255, 255, 0.53);
 }

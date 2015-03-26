@@ -1,0 +1,22 @@
+{
+  "name": "midi-instrument-serial-visualizer",
+  "version": "0.0.1",
+  "homepage": "https://github.com/erlandsona/midi-instrument-serial-visualizer",
+  "authors": [
+    "Austin Erlandson <austin@erlandson.com>"
+  ],
+  "description": "Midi Instrument Data Visualizer",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~3.6.0",
+    "gss": "~2.0.0"
+  }
+}
