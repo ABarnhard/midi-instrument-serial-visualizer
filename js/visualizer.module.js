@@ -1,1 +1,1 @@
-angular.module('visualizer', []);
+angular.module('app', []);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="visualizer" ng-csp>
+<html ng-app="app" ng-csp>
   <head>
 
     <meta charset="utf-8">
@@ -8,12 +8,10 @@
 
     <title>Midi Instrument Serial Visualizer</title>
 
+    <!-- Link stylesheets instead of @include is faster -->
+
     <link rel="stylesheet" href="styles/layout.gss" type="text/gss"/>
     <link rel="stylesheet" href="styles/colors.gss" type="text/gss"/>
-
-    <!-- GSS Dependency -->
-    <script src="/bower_components/gss/dist/gss.min.js"></script>
-    <script src="/gss_jscript.js"></script>
 
   </head>
   <body>
@@ -22,14 +20,7 @@
       <img class="headLogo" src="assets/generic-logo.svg" alt="Logo"/>
     </header>
 
-    <main ng-controller="VisualizerController as vis">
-      <div class="streamContent">
-        <div ng-repeat="device in vis.devices">
-          <p>{{device}}</p>
-        </div>
-        <p class="serialDisplay">this is where the data will populate.</p>
-      </div>
-    </main>
+    <visualizer></visualizer>
 
     <footer>
       <div class="innerFoot">
@@ -39,17 +30,21 @@
 
     <!-- Dependency Tags Here... -->
 
-    <!-- Lodash Dependency -->
+    <!-- GSS Dependency -->
+    <script src="/bower_components/gss/dist/gss.min.js"></script>
+    <script src="/bower_components/gss/dist/gss_jscript.js"></script>
+
+    <!-- Lodash -->
     <script src="/bower_components/lodash/lodash.min.js"></script>
 
-    <!-- Angular Dependency -->
-    <script src="/node_modules/angular/angular.min.js"></script>
+    <!-- Angular -->
+    <script src="/node_modules/angular/angular.js"></script>
 
     <!-- Include Angular Script tags below. -->
 
     <script src="js/visualizer.module.js"></script>
     <script src="js/visualizer.controller.js"></script>
-
+    <script src="js/visualizer.directive.js"></script>
 
 
   </body>

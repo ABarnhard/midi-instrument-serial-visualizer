@@ -2,9 +2,9 @@ header {
   background-color: rgba(240, 240, 240, 0.7);
 }
 
-main  p {
-    color: #eee;
-  }
+visualizer p {
+  color: #eee;
+}
 
 
 footer {

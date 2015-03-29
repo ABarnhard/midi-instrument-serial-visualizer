@@ -5,40 +5,10 @@
   margin: 0px;
 }
 
-/* Sizing */
-
-header[height] == 6vh;
-footer[height] == 24vh;
-.innerFoot[height] == footer[height] / 2.1 !strong;
-
-.headLogo[height] == header[height] / 1.5;
-.footLogo[height] == .innerFoot[height] / 1.9;
-p[size] == p[intrinsic-size];
-.streamContent[size] == .streamContent[intrinsic-size];
-
-
-/* Vertical Alignments */
-
-@v |(header)(main)(footer)|;
-@v |(.innerFoot)-| in(footer) gap(footer[height] / 11);
-.headLogo[cy] == header[cy];
-.footLogo[cy] == .innerFoot[cy];
-.streamContent[cy] == main[cy];
-
-
-/* Horizontal Alignments & a little VFL Sizing */
-
-@h |-(header)-| gap(::window[width] / 12);
-@h |(main, footer, .innerFoot)|;
-@h |-(.streamContent)-|;
-.headLogo[left] == header[left] * 2.4;
-.footLogo[left] == header[left] * 3.1;
-
-
-/* Regular CSS to set the Background Image:) */
+/* Regular CSS */
 
 body {
-  background-image: url('assets/slider_top.jpg');
+  background-image: url('../assets/slider_top.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -47,3 +17,49 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
 }
+
+p {
+  text-align: center;
+}
+
+ /*Sizing */
+
+header[height] == 6vh;
+.headLogo[height] == header[height] / 1.5;
+
+footer[height] == 24vh;
+.innerFoot[height] == footer[height] / 2.1 !strong;
+.footLogo[height] == .innerFoot[height] / 1.9;
+
+.stream[size] == (.stream)[intrinsic-size];
+
+
+
+
+/* Vertical Constraints */
+
+@v |(header)(visualizer)(footer)|;
+@v |(.innerFoot)-| in(footer) gap(footer[height] / 11);
+.headLogo[cy] == header[cy];
+.footLogo[cy] == .innerFoot[cy];
+
+
+
+
+
+/* Horizontal Contstraints */
+
+@h |-(header)-| gap(::window[width] / 12);
+@h |(visualizer, footer, .innerFoot)|;
+.headLogo[left] == header[left] * 2.4;
+.footLogo[left] == header[left] * 3.1;
+
+
+
+
+
+/* Vert & Horiz Constraints */
+
+.stream[center] == ::window[center];
+
+

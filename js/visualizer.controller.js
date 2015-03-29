@@ -1,12 +1,13 @@
 angular
-  .module('visualizer')
+  .module('app')
   .controller('VisualizerController', VisualizerController);
 
 function VisualizerController($scope) {
   'use strict';
 
   var vm     = this,
-      choice = '/dev/tty.usbmodemfa141',
+      serial = chrome.serial,
+      connectionInfo,
       connectionId;
 
   vm.devices = [];
@@ -14,10 +15,15 @@ function VisualizerController($scope) {
 
 
   function onGetDevices(ports) {
+    var  connectionPath = '';
+
     for (var i = 0; i < ports.length; i++) {
       vm.devices.push(ports[i].path);
     }
+
+    connectionPath = vm.connectionPath = vm.devices[5];
     $scope.$apply();
+    serial.connect(connectionPath, onConnect);
   }
 
 
@@ -25,94 +31,96 @@ function VisualizerController($scope) {
   function onConnect(info) {
     // The serial port has been opened. Save its id to use later.
     connectionId = vm.id = info.connectionId;
+    connectionInfo = vm.connectionInfo = info;
     // Do whatever you need to do with the opened port.
   }
 
+  function onRecieveCallback (obj) {
 
-  function onReceiveCallback(obj) {
+    var parsedKVPArr = [];
 
-    function arrayBufferToString(arrayBuffer) {
+    function serialToString(arrayBuffer) {
+      var  u8view       = new Uint8Array(arrayBuffer),
+           str          = '';
 
-      var u8view = new Uint8Array(arrayBuffer),
-             str = '',
-               i = 0;
-      for (i = 0; i < arrayBuffer.byteLength; i++) {
-        str += String.fromCharCode(u8view[i]);
+      for (var a = 0; a < u8view.length; a++) {
+        str += String.fromCharCode(u8view[a]);
       }
-      return str.replace(/(\r\n|\n|\r)/gm, ',').replace(/(\s)/g, '');
+      parsedKVPArr = str.replace(/(\r\n|\n|\r)/gm, ',').replace(/(\s)/g, '').split(',').slice(0, -1);
+      // console.log(parsedKVPArr, str);
+      return parsedKVPArr;
+    }
+
+    function serialToArr (arr, dataPoints) {
+      var parsedArr    = [],
+          parsedKVPArr = arr;
+      for (var b = 0; b < dataPoints; b++) {
+        parsedArr.push(parsedKVPArr[b]);
+      }
+      console.log(parsedArr);
+      return parsedArr;
     }
 
 
-    function serialStringToObj(str) {
+    function serialStringToObj(arr) {
       var obj = {},
-          arr = str.split(',').slice(0, -1),
        arrLen = arr.length,
          temp;
       for (var i = 0; i < arrLen; i++) {
         temp = arr[i].split(':');
         obj[temp[0]] = temp[1];
       }
+      console.log(obj);
       return obj;
     }
 
-    // I'd like to eventually live update the view using the object I'm getting from the serialToObj method
-    // Also I'd like the object coming from the serialToObj method to be a set number of values, EG: 24 data points.
-    // But It would also need a way to sync up with the 0 key from the data so the updated obj would be the same on every iteration.
-
-    document.querySelector('.serialDisplay').textContent =  arrayBufferToString(obj.data);
-
-
-
-
-    //For now I'm Console.logging the obj created from parsing the string created from the stream of data coming in from the ArrayBuffer {};
-
-    // console.log(serialStringToObj(arrayBufferToString(obj.data)));
+    serialStringToObj(serialToArr(serialToString(obj.data), 24));
+    // document.querySelector('.serialDisplay').textContent = serialToString(obj.data);
 
   }
-
-
 
 
 
   function onReceiveErrorCallback(info) {
-    console.log(info.data)
+    console.log(info.data);
   }
 
+
+
   document.querySelector('body').onclick = function(){
-    chrome.serial.setPaused(connectionId, true, function(){});
+    serial.setPaused(connectionId, true, function(){});
   };
 
   // console.log(); Current connections logs an array of connection objects.
-  chrome.serial.getConnections(function (arg) {
-    console.log(arg);
-  });
+  // serial.getConnections(function (arg) {
+  //   console.log(arg);
+  // });
 
 
   // console.logs a specific connection.
-  // chrome.serial.getInfo(connectionId, function (arg) {console.log(arg)});
+  // serial.getInfo(connectionId, function (arg) {console.log(arg)});
 
 
   // Lists available serial devices and appends them to vm.devices.
 
-  chrome.serial.getDevices(onGetDevices);
+  serial.getDevices(onGetDevices);
 
 
 
 
   // Connect to the serial port EG: "/dev/tty.usbmodemfa141"
-  chrome.serial.connect(choice, {bitrate: 115200}, onConnect);
+
 
 
 
 
 
   // Listen for data from controller.
-  chrome.serial.onReceive.addListener(_.throttle(onReceiveCallback, 100));
-
+  serial.onReceive.addListener(_.throttle(onRecieveCallback, 750));
 
 
   // Listens for errors from data stream. I think???
-  // chrome.serial.onReceiveError.addListener(onReceiveErrorCallback);
+  // serial.onReceiveError.addListener(onReceiveErrorCallback);
 
 
 
