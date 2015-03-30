@@ -35,48 +35,40 @@ function VisualizerController($scope) {
     // Do whatever you need to do with the opened port.
   }
 
-  function onRecieveCallback (obj) {
 
-    var parsedKVPArr = [];
+  function onRecieveCallback (arrayBuffer) {
+      var obj          = {},
+          u8view       = new Uint8Array(arrayBuffer.data),
+          parsedKVPArr = [],
+          str          = '',
+          sync         = false;
 
-    function serialToString(arrayBuffer) {
-      var  u8view       = new Uint8Array(arrayBuffer),
-           str          = '';
+// Convert ArrayBuffer to a string then an Array.
 
-      for (var a = 0; a < u8view.length; a++) {
-        str += String.fromCharCode(u8view[a]);
-      }
-      parsedKVPArr = str.replace(/(\r\n|\n|\r)/gm, ',').replace(/(\s)/g, '').split(',').slice(0, -1);
-      // console.log(parsedKVPArr, str);
-      return parsedKVPArr;
-    }
+        for (var a = 0; a < u8view.length; a++) {
+          str += String.fromCharCode(u8view[a]);
+        }
 
-    function serialToArr (arr, dataPoints) {
-      var parsedArr    = [],
-          parsedKVPArr = arr;
-      for (var b = 0; b < dataPoints; b++) {
-        parsedArr.push(parsedKVPArr[b]);
-      }
-      console.log(parsedArr);
-      return parsedArr;
-    }
+        parsedKVPArr = str.replace(/(\r\n|\n|\r)/gm, ',').replace(/(\s)/g, '').split(',').slice(0, -1);
 
+// Convert Parsed Array into an obj with 24 values starting from 0
 
-    function serialStringToObj(arr) {
-      var obj = {},
-       arrLen = arr.length,
-         temp;
-      for (var i = 0; i < arrLen; i++) {
-        temp = arr[i].split(':');
-        obj[temp[0]] = temp[1];
-      }
-      console.log(obj);
-      return obj;
-    }
-
-    serialStringToObj(serialToArr(serialToString(obj.data), 24));
+        for (var c = 0; c < parsedKVPArr.length; c++) {
+          var tempArr = parsedKVPArr[c].split(':');
+          if (sync) {
+            obj[tempArr[0]] = tempArr[1];
+            if (Object.keys(obj).length === 24){
+              console.log(obj);
+              return obj;
+            }
+          } else {
+            if (tempArr[0] === '0') {
+              obj[tempArr[0]] = tempArr[1];
+              sync = true;
+            }
+          }
+        }
     // document.querySelector('.serialDisplay').textContent = serialToString(obj.data);
-
   }
 
 
@@ -111,12 +103,8 @@ function VisualizerController($scope) {
   // Connect to the serial port EG: "/dev/tty.usbmodemfa141"
 
 
-
-
-
-
   // Listen for data from controller.
-  serial.onReceive.addListener(_.throttle(onRecieveCallback, 750));
+  serial.onReceive.addListener(onRecieveCallback);
 
 
   // Listens for errors from data stream. I think???
