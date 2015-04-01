@@ -34,8 +34,6 @@ footer[height] == 24vh;
 .stream[size] == (.stream)[intrinsic-size];
 
 
-
-
 /* Vertical Constraints */
 
 @v |(header)(visualizer)(footer)|;
@@ -44,18 +42,12 @@ footer[height] == 24vh;
 .footLogo[cy] == .innerFoot[cy];
 
 
-
-
-
 /* Horizontal Contstraints */
 
 @h |-(header)-| gap(::window[width] / 12);
 @h |(visualizer, footer, .innerFoot)|;
 .headLogo[left] == header[left] * 2.4;
 .footLogo[left] == header[left] * 3.1;
-
-
-
 
 
 /* Vert & Horiz Constraints */

@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Midi Instrument Serial Visualizer</title>
-
+    <!-- GSS Dependency -->
+    <script src="/bower_components/gss/dist/gss.min.js"></script>
+    <script src="/bower_components/gss/dist/gss_jscript.js"></script>
     <!-- Link stylesheets instead of @include is faster -->
 
     <link rel="stylesheet" href="styles/layout.gss" type="text/gss"/>
@@ -17,25 +19,24 @@
   <body>
 
     <header>
-      <img class="headLogo" src="assets/generic-logo.svg" alt="Logo"/>
+      <img class="headLogo" src="assets/standard_logo.png" alt="Logo"/>
     </header>
 
     <visualizer></visualizer>
 
     <footer>
       <div class="innerFoot">
-        <img class="footLogo" src="assets/generic-logo.svg" alt="Logo"/>
+        <img class="footLogo" src="assets/standard_logo.png" alt="Logo"/>
       </div>
     </footer>
 
     <!-- Dependency Tags Here... -->
 
-    <!-- GSS Dependency -->
-    <script src="/bower_components/gss/dist/gss.min.js"></script>
-    <script src="/bower_components/gss/dist/gss_jscript.js"></script>
-
     <!-- Lodash -->
     <script src="/bower_components/lodash/lodash.min.js"></script>
+
+    <!-- D3 -->
+    <script src="/bower_components/d3/d3.min.js"></script>
 
     <!-- Angular -->
     <script src="/node_modules/angular/angular.js"></script>
@@ -43,6 +44,8 @@
     <!-- Include Angular Script tags below. -->
 
     <script src="js/visualizer.module.js"></script>
+    <script src="js/visualizer.constants.js"></script>
+    <script src="js/visualizer.factory.js"></script>
     <script src="js/visualizer.controller.js"></script>
     <script src="js/visualizer.directive.js"></script>
 
