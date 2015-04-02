@@ -1,9 +1,10 @@
 angular.module('app')
   .controller('MainCtrl', function(){
+
     var vm = this;
 
     vm.greeting = 'Resize the page to see the re-rendering';
-    vm.data = _.map({
+    vm.data = d3.entries({
             0:1,
             1:1,
             2:1,

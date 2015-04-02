@@ -48,7 +48,7 @@ function VisualizerController($scope, SERIAL) {
   var serialObject = {};
 
   function onRecieveCallback (arrayBuffer) {
-    _.delay(function () {
+    // _.delay(function () {
       var  u8view       = new Uint8Array(arrayBuffer.data),
            parsedKVPArr = [],
            str          = '',
@@ -68,9 +68,9 @@ function VisualizerController($scope, SERIAL) {
           if (sync) {
             serialObject[tempArr[0]] = parseInt(tempArr[1], 16);
             if (Object.keys(serialObject).length === 24){
-                vm.serial = serialObject;
+                vm.data = d3.entries(serialObject);
                 serialObject = {};
-                $scope.$apply();
+                // $scope.$apply();
             }
           } else if (tempArr[0] === '0') {
             serialObject[tempArr[0]] = parseInt(tempArr[1], 16);
@@ -80,7 +80,7 @@ function VisualizerController($scope, SERIAL) {
           console.log('Dropped a Value/Out of Sync??? ' + parseInt(tempArr[0], 16));
         }
       }
-    }, 1000);
+    // }, 100);
   }
 
   function onReceiveErrorCallback(info) {
