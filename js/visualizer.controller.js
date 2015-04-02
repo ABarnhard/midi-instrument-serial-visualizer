@@ -48,7 +48,7 @@ function VisualizerController($scope, SERIAL) {
   var serialObject = {};
 
   function onRecieveCallback (arrayBuffer) {
-    _.delay(function () {
+    // _.delay(function () {
       var  u8view       = new Uint8Array(arrayBuffer.data),
            parsedKVPArr = [],
            str          = '',
@@ -80,7 +80,7 @@ function VisualizerController($scope, SERIAL) {
           console.log('Dropped a Value/Out of Sync??? ' + parseInt(tempArr[0], 16));
         }
       }
-    }, 1000);
+    // }, 100);
   }
 
   function onReceiveErrorCallback(info) {
