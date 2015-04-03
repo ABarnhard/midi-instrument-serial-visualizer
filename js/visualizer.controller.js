@@ -15,6 +15,11 @@ function VisualizerController($rootScope, $scope, SERIAL) {
 
   vm.devices = [];
 
+
+  setInterval(function(){
+    $rootScope.$broadcast('dataChanged');
+  }, 50);
+
   // Lists available serial devices and appends them to vm.devices and connects to the device.
   SERIAL.getDevices(onGetDevices);
 
@@ -47,7 +52,6 @@ function VisualizerController($rootScope, $scope, SERIAL) {
   }
 
 
-
   function onRecieveCallback (arrayBuffer) {
     // _.delay(function () {
       var  u8view       = new Uint8Array(arrayBuffer.data),
@@ -69,9 +73,8 @@ function VisualizerController($rootScope, $scope, SERIAL) {
           if (sync) {
             serialObject[tempArr[0]] = parseInt(tempArr[1], 16);
             if (Object.keys(serialObject).length === 24){
-                vm.data = d3.entries(serialObject);
-                $rootScope.$broadcast('dataChanged');
-                serialObject = {};
+              vm.data = d3.entries(serialObject);
+              serialObject = {};
             }
           } else if (tempArr[0] === '0') {
             serialObject[tempArr[0]] = parseInt(tempArr[1], 16);
