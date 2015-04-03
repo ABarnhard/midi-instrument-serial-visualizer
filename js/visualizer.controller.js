@@ -2,13 +2,14 @@ angular
   .module('app')
   .controller('VisualizerController', VisualizerController);
 
-VisualizerController.$inject = ['$scope', 'SERIAL'];
+VisualizerController.$inject = ['$rootScope','$scope', 'SERIAL'];
 
-function VisualizerController($scope, SERIAL) {
+function VisualizerController($rootScope, $scope, SERIAL) {
   'use strict';
 
   var vm             = this,
       connectionPath = '',
+      serialObject   = {},
       connectionInfo,
       connectionId;
 
@@ -45,7 +46,7 @@ function VisualizerController($scope, SERIAL) {
     connectionInfo = vm.connectionInfo = info;
   }
 
-  var serialObject = {};
+
 
   function onRecieveCallback (arrayBuffer) {
     // _.delay(function () {
@@ -69,8 +70,8 @@ function VisualizerController($scope, SERIAL) {
             serialObject[tempArr[0]] = parseInt(tempArr[1], 16);
             if (Object.keys(serialObject).length === 24){
                 vm.data = d3.entries(serialObject);
+                $rootScope.$broadcast('dataChanged');
                 serialObject = {};
-                // $scope.$apply();
             }
           } else if (tempArr[0] === '0') {
             serialObject[tempArr[0]] = parseInt(tempArr[1], 16);

@@ -8,7 +8,7 @@ function visualizer() {
   var directive = {
     restrict: 'EA',
     templateUrl: 'js/visualizer.html',
-    controller: 'MainCtrl',
+    controller: 'VisualizerController',
     controllerAs: 'vis',
     link: serialDisplay
   };
@@ -30,9 +30,9 @@ function visualizer() {
       scope.$apply();
     };
 
-    scope.$watch('data', function(newVals, oldVals) {
-      return scope.vis.render(newVals);
-    }, true);
+    scope.$on('dataChanged', function() {
+      scope.vis.render(scope.vis.data);
+    });
 
     // Watch for resize event
     scope.$watch(function() {

@@ -3,6 +3,7 @@ angular.module('app')
 
     var vm = this;
 
+    vm.data = [];
     vm.greeting = 'Resize the page to see the re-rendering';
     vm.data = d3.entries({
             0:1,
