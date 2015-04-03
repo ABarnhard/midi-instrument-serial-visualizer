@@ -2,17 +2,23 @@ angular
   .module('app')
   .controller('VisualizerController', VisualizerController);
 
-VisualizerController.$inject = ['$scope', 'SERIAL'];
+VisualizerController.$inject = ['$rootScope','$scope', 'SERIAL'];
 
-function VisualizerController($scope, SERIAL) {
+function VisualizerController($rootScope, $scope, SERIAL) {
   'use strict';
 
   var vm             = this,
       connectionPath = '',
+      serialObject   = {},
       connectionInfo,
       connectionId;
 
   vm.devices = [];
+
+
+  setInterval(function(){
+    $rootScope.$broadcast('dataChanged');
+  }, 50);
 
   // Lists available serial devices and appends them to vm.devices and connects to the device.
   SERIAL.getDevices(onGetDevices);
@@ -45,7 +51,6 @@ function VisualizerController($scope, SERIAL) {
     connectionInfo = vm.connectionInfo = info;
   }
 
-  var serialObject = {};
 
   function onRecieveCallback (arrayBuffer) {
     // _.delay(function () {
@@ -68,9 +73,8 @@ function VisualizerController($scope, SERIAL) {
           if (sync) {
             serialObject[tempArr[0]] = parseInt(tempArr[1], 16);
             if (Object.keys(serialObject).length === 24){
-                vm.serial = serialObject;
-                serialObject = {};
-                $scope.$apply();
+              vm.data = d3.entries(serialObject);
+              serialObject = {};
             }
           } else if (tempArr[0] === '0') {
             serialObject[tempArr[0]] = parseInt(tempArr[1], 16);
