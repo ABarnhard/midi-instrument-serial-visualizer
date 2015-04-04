@@ -52,8 +52,28 @@ function VisualizerController($rootScope, $scope, SERIAL) {
   }
 
 
+// {0: val, key: val, key: val, key: val, key: val, 24: val} 24sec
+// {0: val, key: val, key: val, key: val, key: val, 24: val} 25sec
+// {0: val, key: val, key: val, key: val, key: val, 24: val} 26sec
+// {0: val, key: val, key: val, key: val, key: val, 24: val}
+// {0: val, key: val, key: val, key: val, key: val, 24: val}
+// {0: val, key: val, key: val, key: val, key: val, 24: val}
+// {0: val, key: val, key: val, key: val, key: val, 24: val}
+// {0: val, key: val, key: val, key: val, key: val, 24: val}
+// {0: val, key: val, key: val, key: val, key: val, 24: val}
+
+// {0: val, key: val, key: val, key: val, key: val, 24: val}
+// {0: val, key: val, key: val, key: val, key: val, 24: val}
+// {0: val, key: val, key: val, key: val, key: val, 24: val}
+// {0: val, key: val, key: val, key: val, key: val, 24: val}
+// {0: val, key: val, key: val, key: val, key: val, 24: val}
+
+// {0: val, key: val, key: val, key: val, key: val, 24: val}
+
+
+//chrome.storage = Json.stringify(data)
+
   function onRecieveCallback (arrayBuffer) {
-    // _.delay(function () {
       var  u8view       = new Uint8Array(arrayBuffer.data),
            parsedKVPArr = [],
            str          = '',
@@ -68,12 +88,14 @@ function VisualizerController($rootScope, $scope, SERIAL) {
 
       for (var c = 0; c < parsedKVPArr.length; c++) {
         var tempArr = parsedKVPArr[c].split(':');
-
         if (!!tempArr[0] && !!tempArr[1]) {
           if (sync) {
             serialObject[tempArr[0]] = parseInt(tempArr[1], 16);
-            if (Object.keys(serialObject).length === 24){
+            if (Object.keys(serialObject).length === 24) {
+              // newArray.push(new data(datatimestamp,serialObject));
+              // chrome.storage = Json.stringify(data)
               vm.data = d3.entries(serialObject);
+              $rootScope.$broadcast('dataChanged');
               serialObject = {};
             }
           } else if (tempArr[0] === '0') {
@@ -84,7 +106,6 @@ function VisualizerController($rootScope, $scope, SERIAL) {
           console.log('Dropped a Value/Out of Sync??? ' + parseInt(tempArr[0], 16));
         }
       }
-    // }, 100);
   }
 
   function onReceiveErrorCallback(info) {

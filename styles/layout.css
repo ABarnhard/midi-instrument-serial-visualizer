@@ -1,0 +1,90 @@
+/* Clear Browser Styles */
+
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+/* Regular CSS */
+
+body {
+  background-image: url('../assets/slider_top.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+/*container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}*/
+
+header {
+  position: fixed;
+  height: 6%;
+  width: 100%;
+  top: 0;
+}
+
+header img {
+  position: relative;
+  height: 60%;
+  resize: horizontal;
+  top: 20%;
+  left: 15%;
+}
+
+visualizer {
+  flex: 1;
+}
+
+footer {
+  position: fixed;
+  height: 24%;
+  width: 100%;
+  bottom: 0;
+}
+
+footer .innerFoot {
+  position: fixed;
+  bottom: 2.1%;
+  height: 13%;
+  width: 100%;
+}
+
+.innerFoot img {
+  position: relative;
+  height: 60%;
+  resize: horizontal;
+  top: 20%;
+  left: 15%;
+}
+
+p {
+  text-align: center;
+}
+
+
+.chart {
+    background: #eee;
+    padding: 3px;
+}
+
+.chart div {
+  width: 0px;
+}
+
+.chart div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 5px;
+  color: white;
+  box-shadow: 2px 2px 2px #666;
+}
