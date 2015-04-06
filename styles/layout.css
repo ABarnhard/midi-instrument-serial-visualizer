@@ -1,11 +1,7 @@
-/* Clear Browser Styles */
-
 * {
   padding: 0px;
   margin: 0px;
 }
-
-/* Regular CSS */
 
 body {
   background-image: url('../assets/slider_top.jpg');
@@ -17,12 +13,6 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
 }
-
-/*container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}*/
 
 header {
   position: fixed;
@@ -46,6 +36,19 @@ visualizer {
   width: 100%;
 }
 
+.stream {
+  position: relative;
+  resize: horizontal;
+  margin: auto;
+  text-align: center;
+}
+
+svg {
+  position: relative;
+  resize: horizontal;
+  margin: auto;
+}
+
 footer {
   position: fixed;
   height: 24%;
@@ -66,31 +69,4 @@ footer .innerFoot {
   resize: horizontal;
   top: 20%;
   left: 15%;
-}
-
-.stream {
-  position: relative;
-  resize: horizontal;
-  margin: auto;
-  text-align: center;
-}
-
-
-.chart {
-    background: #eee;
-    padding: 3px;
-}
-
-.chart div {
-  width: 0px;
-}
-
-.chart div {
-  font: 10px sans-serif;
-  background-color: steelblue;
-  text-align: right;
-  padding: 3px;
-  margin: 5px;
-  color: white;
-  box-shadow: 2px 2px 2px #666;
 }
