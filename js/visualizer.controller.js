@@ -18,7 +18,7 @@ function VisualizerController($rootScope, $scope, SERIAL) {
 
   setInterval(function(){
     $rootScope.$broadcast('dataChanged');
-  }, 50);
+  }, 5);
 
   // Lists available serial devices and appends them to vm.devices and connects to the device.
   SERIAL.getDevices(onGetDevices);

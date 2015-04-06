@@ -40,7 +40,10 @@ header img {
 }
 
 visualizer {
-  flex: 1;
+  position: fixed;
+  top: 6%;
+  bottom: 24%;
+  width: 100%;
 }
 
 footer {
@@ -65,7 +68,10 @@ footer .innerFoot {
   left: 15%;
 }
 
-p {
+.stream {
+  position: relative;
+  resize: horizontal;
+  margin: auto;
   text-align: center;
 }
 
